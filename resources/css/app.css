@@ -1,0 +1,321 @@
+@import 'tailwindcss';
+
+@import 'tw-animate-css';
+
+/*
+    Headings & brand marks: Mileast (Sron Studio) — display serif.
+    Body/UI copy: Orbitron (The League of Moveable Type) — OFL licensed.
+    Both are bundled by Vite from resources/fonts (works in dev and in the
+    production build; no CDN, no reliance on /public paths).
+    These are the DEMO cuts of Mileast, licensed for personal use only;
+    swap in the purchased license file for commercial deployment.
+*/
+@font-face {
+    font-family: 'Mileast';
+    src: url('../fonts/Mileast.otf') format('opentype');
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Mileast';
+    src: url('../fonts/Mileast Italic.otf') format('opentype');
+    font-style: italic;
+    font-weight: 400;
+    font-display: swap;
+}
+
+/* Orbitron: Light 300 / Medium 500 / Bold 700 / Black 900; normal-weight
+   body text resolves to Medium (weight 500) for legibility. */
+@font-face {
+    font-family: 'Orbitron';
+    src: url('../fonts/orbitron-light-webfont.woff') format('woff');
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Orbitron';
+    src: url('../fonts/orbitron-medium-webfont.woff') format('woff');
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Orbitron';
+    src: url('../fonts/orbitron-bold-webfont.woff') format('woff');
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Orbitron';
+    src: url('../fonts/orbitron-black-webfont.woff') format('woff');
+    font-style: normal;
+    font-weight: 900;
+    font-display: swap;
+}
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+    /* Body/UI copy: Orbitron (futuristic geometric sans) */
+    --font-sans:
+        'Orbitron', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+        'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
+        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+        'Noto Color Emoji';
+
+    /* Headings & brand marks: Mileast display serif */
+    --font-display:
+        'Mileast', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+        'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
+        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+        'Noto Color Emoji';
+
+    --radius-lg: var(--radius);
+    --radius-md: calc(var(--radius) - 4px);
+    --radius-sm: calc(var(--radius) - 6px);
+    --radius-xl: calc(var(--radius) + 8px);
+    --radius-2xl: calc(var(--radius) + 16px);
+
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+
+    --color-chart-1: var(--chart-1);
+    --color-chart-2: var(--chart-2);
+    --color-chart-3: var(--chart-3);
+    --color-chart-4: var(--chart-4);
+    --color-chart-5: var(--chart-5);
+
+    --color-sidebar: var(--sidebar-background);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-ring: var(--sidebar-ring);
+
+    /* Vaultis brand tokens */
+    --color-vault-obsidian: var(--vault-obsidian);
+    --color-vault-surface: var(--vault-surface);
+    --color-vault-surface-2: var(--vault-surface-2);
+    --color-vault-hairline: var(--vault-hairline);
+    --color-vault-mint: var(--vault-mint);
+    --color-vault-mint-dim: var(--vault-mint-dim);
+    --color-vault-forest: var(--vault-forest);
+    --color-vault-ink: var(--vault-ink);
+    --color-vault-ink-dim: var(--vault-ink-dim);
+    --color-vault-amber: var(--vault-amber);
+    --color-vault-rose: var(--vault-rose);
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+*/
+@layer base {
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-gray-200, currentColor);
+    }
+}
+
+@layer utilities {
+    body,
+    html {
+        --font-sans:
+            'Orbitron', ui-sans-serif, system-ui, -apple-system,
+            BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+            'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+            'Segoe UI Symbol', 'Noto Color Emoji';
+        --font-display:
+            'Mileast', ui-sans-serif, system-ui, -apple-system,
+            BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+            'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+            'Segoe UI Symbol', 'Noto Color Emoji';
+    }
+
+    /* Tabular numerals for balances, ledgers, and any aligned figures */
+    .tnum {
+        font-variant-numeric: tabular-nums;
+        font-feature-settings: 'tnum' 1;
+    }
+
+    /* Brand eyebrow / action-label treatment reserved for real UI actions
+       (buttons, status chips, tags) per Vaultis brand guidelines --
+       never used as a decorative heading label. */
+    .brand-label {
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+}
+
+:root {
+    /* ---- Vaultis brand primitives ---- */
+    /* Light surface: paper-white with a faint sage cast, deep forest text --
+       used for the "official / print" register (stationery, statements). */
+    --vault-obsidian: hsl(150 12% 97%);
+    --vault-surface: hsl(0 0% 100%);
+    --vault-surface-2: hsl(150 20% 95%);
+    --vault-hairline: hsl(150 15% 88%);
+    --vault-mint: hsl(152 55% 38%);
+    --vault-mint-dim: hsl(152 45% 30%);
+    --vault-forest: hsl(156 65% 14%);
+    --vault-ink: hsl(160 30% 8%);
+    --vault-ink-dim: hsl(155 10% 40%);
+    --vault-amber: hsl(38 75% 48%);
+    --vault-rose: hsl(6 60% 48%);
+
+    --background: var(--vault-obsidian);
+    --foreground: var(--vault-ink);
+    --card: var(--vault-surface);
+    --card-foreground: var(--vault-ink);
+    --popover: var(--vault-surface);
+    --popover-foreground: var(--vault-ink);
+    --primary: var(--vault-forest);
+    --primary-foreground: hsl(150 40% 97%);
+    --secondary: var(--vault-surface-2);
+    --secondary-foreground: var(--vault-forest);
+    --muted: var(--vault-surface-2);
+    --muted-foreground: var(--vault-ink-dim);
+    --accent: hsl(152 45% 92%);
+    --accent-foreground: var(--vault-forest);
+    --destructive: var(--vault-rose);
+    --destructive-foreground: hsl(0 0% 100%);
+    --border: var(--vault-hairline);
+    --input: var(--vault-hairline);
+    --ring: var(--vault-mint);
+    --chart-1: hsl(152 55% 38%);
+    --chart-2: hsl(38 75% 55%);
+    --chart-3: hsl(184 45% 42%);
+    --chart-4: hsl(266 30% 55%);
+    --chart-5: hsl(6 55% 55%);
+    --radius: 0.75rem;
+    --sidebar-background: hsl(0 0% 100%);
+    --sidebar-foreground: var(--vault-ink);
+    --sidebar-primary: var(--vault-forest);
+    --sidebar-primary-foreground: hsl(150 40% 97%);
+    --sidebar-accent: hsl(152 45% 93%);
+    --sidebar-accent-foreground: var(--vault-forest);
+    --sidebar-border: var(--vault-hairline);
+    --sidebar-ring: var(--vault-mint);
+    --sidebar: hsl(0 0% 100%);
+}
+
+.dark {
+    /* ---- Dark-first digital register: deep forest obsidian, mint accents ----
+       Deliberately green-black rather than a neutral near-black, so the
+       brand's identity survives even at its darkest surface. */
+    --vault-obsidian: hsl(160 32% 4%);
+    --vault-surface: hsl(160 26% 7%);
+    --vault-surface-2: hsl(158 22% 11%);
+    --vault-hairline: hsl(155 20% 18%);
+    --vault-mint: hsl(151 65% 55%);
+    --vault-mint-dim: hsl(151 45% 32%);
+    --vault-forest: hsl(156 55% 22%);
+    --vault-ink: hsl(140 28% 95%);
+    --vault-ink-dim: hsl(150 12% 62%);
+    --vault-amber: hsl(38 80% 60%);
+    --vault-rose: hsl(6 65% 62%);
+
+    --background: var(--vault-obsidian);
+    --foreground: var(--vault-ink);
+    --card: var(--vault-surface);
+    --card-foreground: var(--vault-ink);
+    --popover: var(--vault-surface-2);
+    --popover-foreground: var(--vault-ink);
+    --primary: var(--vault-mint);
+    --primary-foreground: hsl(160 40% 6%);
+    --secondary: var(--vault-surface-2);
+    --secondary-foreground: var(--vault-ink);
+    --muted: var(--vault-surface-2);
+    --muted-foreground: var(--vault-ink-dim);
+    --accent: hsl(155 30% 15%);
+    --accent-foreground: var(--vault-ink);
+    --destructive: var(--vault-rose);
+    --destructive-foreground: hsl(0 0% 100%);
+    --border: var(--vault-hairline);
+    --input: var(--vault-hairline);
+    --ring: var(--vault-mint);
+    --chart-1: hsl(151 65% 55%);
+    --chart-2: hsl(38 80% 60%);
+    --chart-3: hsl(184 55% 52%);
+    --chart-4: hsl(266 45% 68%);
+    --chart-5: hsl(6 65% 62%);
+    --sidebar-background: hsl(160 32% 5%);
+    --sidebar-foreground: hsl(140 20% 88%);
+    --sidebar-primary: var(--vault-mint);
+    --sidebar-primary-foreground: hsl(160 40% 6%);
+    --sidebar-accent: hsl(156 30% 12%);
+    --sidebar-accent-foreground: var(--vault-ink);
+    --sidebar-border: hsl(155 22% 13%);
+    --sidebar-ring: var(--vault-mint);
+    --sidebar: hsl(160 32% 5%);
+}
+
+@layer base {
+    * {
+        @apply border-border outline-ring/50;
+    }
+    body {
+        @apply bg-background text-foreground;
+    }
+
+    /* Headings & brand marks use the Mileast display serif; body copy and
+       UI text use Orbitron. The Mileast DEMO cut is a single static weight
+       — suppress faux-bolding so heading weight utilities render the
+       typeface as designed. */
+    h1,
+    h2,
+    h3,
+    h4 {
+        font-family: var(--font-display);
+        font-synthesis-weight: none;
+    }
+}
