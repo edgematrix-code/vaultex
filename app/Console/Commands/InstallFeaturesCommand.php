@@ -46,13 +46,16 @@ class InstallFeaturesCommand extends Command
 
         $answers = $script
             ->collectAnswers()
-            ->onQuestion(fn (Question $question) => multiselect(
-                label: $question->label,
-                options: $question->options,
-                default: $question->default ?? [],
-                required: $question->required,
-                hint: $question->hint,
-            ))
+            ->onQuestion(fn (Question $question) => $this->input->isInteractive()
+                ? multiselect(
+                    label: $question->label,
+                    options: $question->options,
+                    default: $question->default ?? [],
+                    required: $question->required,
+                    hint: $question->hint,
+                )
+                : $question->default ?? [],
+            )
             ->interactive($this->input->isInteractive())
             ->withAnswers($providedAnswers);
 

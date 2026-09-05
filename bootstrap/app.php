@@ -8,6 +8,22 @@ use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets;
 use Illuminate\Http\Request;
 
+/*
+|--------------------------------------------------------------------------
+| Load Environment (Overwrite Mode)
+|--------------------------------------------------------------------------
+|
+| Load the .env file BEFORE creating the Application, using overwrite mode
+| so .env values always win over pre-set environment variables (e.g. from
+| the shell, Herd, or a deploy container that has stale DB_* values).
+|
+| This must run before Application::configure() which triggers the
+| LoadEnvironmentVariables bootstrapper (which uses safeLoad — skip mode).
+|--------------------------------------------------------------------------
+*/
+
+require_once __DIR__.'/environment.php';
+
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         web: __DIR__.'/../routes/web.php',
