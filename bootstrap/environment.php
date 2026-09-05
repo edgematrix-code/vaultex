@@ -39,8 +39,30 @@ if (! defined('LARAVEL_START')) {
      *
      * This file uses load() (overwrite mode) so .env values always win.
      */
-    if (class_exists('Dotenv\Dotenv')) {
+    if (class_exists('Dotenv\Dotenv') && file_exists(dirname(__DIR__).'/.env')) {
         $dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__), '.env');
         $dotenv->load();
+    }
+
+    /*
+     * Ensure a sqlite database file exists when the app will use sqlite.
+     *
+     * In build containers where .env doesn't exist AND no DB env vars are set,
+     * Laravel defaults to DB_CONNECTION=sqlite with DB_DATABASE=database/database.sqlite.
+     * The sqlite file must exist or the app fails to boot — breaking
+     * "php artisan wayfinder:generate" during "pnpm run build".
+     *
+     * When DB_CONNECTION env var IS set (e.g. Wasmer injects it at build time),
+     * skip sqlite creation — the app will use the injected DB.
+     *
+     * Note: we check getenv() AFTER the .env load above, so .env values take
+     * precedence over any pre-set shell vars.
+     */
+    $dbConnection = getenv('DB_CONNECTION');
+    if ((string) $dbConnection === '' || $dbConnection === false) {
+        $sqlitePath = dirname(__DIR__).'/database/database.sqlite';
+        if (! file_exists($sqlitePath)) {
+            @touch($sqlitePath);
+        }
     }
 }
